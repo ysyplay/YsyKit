@@ -2,7 +2,7 @@
 //  ViewController.h
 //  YsyKit
 //
-//  Created by HG on 2018/5/16.
+//  Created by HG on 2018/5/17.
 //  Copyright © 2018年 ysyplay. All rights reserved.
 //
 
@@ -10,6 +10,4 @@
 
 @interface ViewController : UIViewController
 
-
 @end
-

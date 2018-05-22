@@ -1,0 +1,109 @@
+//
+//  PrefixHeader.pch
+//  YsyKit
+//
+//  Created by HG on 2018/5/17.
+//  Copyright © 2018年 ysyplay. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+//项目相关的配置
+#define BUNDLENAME @"项目名"
+
+
+//服务切换
+#define URLHEADER @"http://47.100.63.59/Jfinal" //测试服务器
+//#define addressInterface @"https://admin.dddriver.com" //线上服务器
+
+
+
+#ifndef weakify
+
+#if DEBUG
+
+#if __has_feature(objc_arc)
+
+#define weakify(object) autoreleasepool{} __weak __typeof__(object) weak##_##object = object;
+
+#else
+
+#define weakify(object) autoreleasepool{} __block __typeof__(object) block##_##object = object;
+
+#endif
+
+#else
+
+#if __has_feature(objc_arc)
+
+#define weakify(object) try{} @finally{} {} __weak __typeof__(object) weak##_##object = object;
+
+#else
+
+#define weakify(object) try{} @finally{} {} __block __typeof__(object) block##_##object = object;
+
+#endif
+
+#endif
+
+#endif
+
+
+#ifndef strongify
+
+#if DEBUG
+
+#if __has_feature(objc_arc)
+
+#define strongify(object) autoreleasepool{} __typeof__(object) object = weak##_##object;
+
+#else
+
+#define strongify(object) autoreleasepool{} __typeof__(object) object = block##_##object;
+
+#endif
+
+#else
+
+#if __has_feature(objc_arc)
+
+#define strongify(object) try{} @finally{} __typeof__(object) object = weak##_##object;
+
+#else
+
+#define strongify(object) try{} @finally{} __typeof__(object) object = block##_##object;
+
+#endif
+
+#endif
+
+#endif
+
+
+#define WINDOW [[UIApplication sharedApplication].delegate window]
+#define DEFAULT  [NSUserDefaults standardUserDefaults]
+#define SAVE_IMMEDIATELY   [DEFAULT synchronize]
+#define WEAK    __weak typeof(self) weakSelf = self
+#define STRONG  __strong __typeof(weakSelf)strongSelf = weakSelf
+#define SCREEN_WIDTH  [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#define RGBFrom0X(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+//导航高度
+#define NAVHeight (SCREEN_WIDTH==375?64:88)
+
+//打印，代替NSLog
+#ifdef DEBUG
+# define YSYLog(fmt, ...) NSLog((@"%s" "(%d行)\n" fmt),__FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+# define YSYLog(...);
+#endif
+
+//颜色
+#define BasicColor 0x46A3FF
+#define BasicBackgroundColor 0xf2f2f2
+#define SeparatorColor 0xdddddd
+#define DarkTextColor 0x505050
+#define placeHolderColor 0xaaaaaa
+#define GreenColor 0x3c9363
+#endif /* PrefixHeader_pch */

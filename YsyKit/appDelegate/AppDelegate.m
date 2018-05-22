@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "YsyTools.h"
 @interface AppDelegate ()
 
 @end
@@ -15,8 +15,10 @@
 @implementation AppDelegate
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    //页面自适应键盘
+    [YsyTools loadIQKeyboardManager];
     return YES;
 }
 
